@@ -1,23 +1,26 @@
 version: "3.1"
 services:
     db:
-        image: mysql
-        ports: 
+        #image: mysql
+        image: mariadb
+        ports:
             - "3306:3306"
-        command: --default-authentication-plugin=mysql_native_password
+        #command: --default-authentication-plugin=mysql_native_password
         environment:
             MYSQL_DATABASE: dbname
-            MYSQL_PASSWORD: test
-            MYSQL_ROOT_PASSWORD: test 
+            MYSQL_PASSWORD: null
+            #MYSQL_ROOT_PASSWORD: test
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
         volumes:
             - ./dump:/docker-entrypoint-initdb.d
             - ./conf:/etc/mysql/conf.d
             - persistent:/var/lib/mysql
         networks:
             - default
+        restart: unless-stopped
     www:
         build: .
-        ports: 
+        ports:
             - "80:80"
         volumes:
             - ./www:/var/www/html
@@ -25,15 +28,22 @@ services:
             - db
         networks:
             - default
+        restart: unless-stopped
     phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        links: 
+        #image: phpmyadmin/phpmyadmin
+        image: arm64v8/phpmyadmin
+        links:
             - db:db
         ports:
             - 8000:80
+        depends_on:
+            - db
         environment:
             MYSQL_USER: root
-            MYSQL_PASSWORD: test
-            MYSQL_ROOT_PASSWORD: test 
+            MYSQL_PASSWORD: null
+            #MYSQL_ROOT_PASSWORD: test
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+            PMA_HOST: db
+        restart: always
 volumes:
     persistent:
