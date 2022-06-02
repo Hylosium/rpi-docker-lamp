@@ -6,8 +6,19 @@ Watch the video 👇
 
 Docker with Apache, MariaDB, PHPMyAdmin and PHP.
 
-I use docker-compose as an orchestrator. To run these containers:
+# How-To-Use
 
+Let's start by downloading the repository to our server.
+```
+git clone https://github.com/Hylosium/rpi-docker-lamp.git
+```
+
+Once it's downloaded we get inside the folder.
+```
+cd rpi-docker-lamp
+```
+
+I use docker-compose as an orchestrator. To run these containers:
 ```
 docker-compose up -d
 ```
@@ -17,6 +28,7 @@ docker-compose up -d
 | HTTP    |    80 |
 | PHPADM  |  8000 |
 | SQL     |  3306 |
+
 
 
 Open phpmyadmin at [http://127.0.0.1:8000](http://127.0.0.1:8000) No password needed, only `root` user.
