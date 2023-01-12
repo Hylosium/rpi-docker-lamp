@@ -56,3 +56,8 @@ Structure of folders:
 └── www/
     └── index.php
 ```
+
+
+### Infrastructure model
+
+![Infrastructure model](.infragenie/infrastructure_model.png)
